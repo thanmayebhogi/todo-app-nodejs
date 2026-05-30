@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+
+    <style>
+        body{
+            margin:0;
+            background:#e5e5e5;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        header{
+            background:#d8f000;
+            padding:25px;
+        }
+
+        header h1{
+            margin:0;
+            font-size:40px;
+            font-weight:normal;
+        }
+
+        .container{
+            width:500px;
+            margin:50px auto;
+            text-align:center;
+        }
+
+        input[type="text"]{
+            width:250px;
+            padding:10px;
+            border:1px solid #ccc;
+            border-radius:4px;
+        }
+
+        .add-btn{
+            background:#d8f000;
+            border:none;
+            padding:10px 20px;
+            cursor:pointer;
+            border-radius:4px;
+        }
+
+        .delete-btn{
+            margin-top:20px;
+            width:320px;
+            background:tomato;
+            color:white;
+            border:none;
+            padding:12px;
+            border-radius:4px;
+            cursor:pointer;
+        }
+
+        ul{
+            list-style:none;
+            padding:0;
+            margin-top:30px;
+        }
+
+        li{
+            background:white;
+            margin:10px 0;
+            padding:10px;
+            border-radius:4px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .delete-item-btn{
+            background:red;
+            color:white;
+            border:none;
+            padding:6px 12px;
+            border-radius:4px;
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>TODO LIST</h1>
+</header>
+
+<div class="container">
+
+    <form action="/add" method="POST">
+        <input
+            type="text"
+            name="newitem"
+            placeholder="Enter task"
+            required
+        >
+        <button type="submit" class="add-btn">Add Task</button>
+    </form>
+
+    <ul>
+        <% if(todos.length > 0){ %>
+
+            <% todos.forEach(function(todo){ %>
+
+                <li>
+                    <span><%= todo.todos %></span>
+
+                    <form action="/delete/<%= todo._id %>" method="POST">
+                        <button
+                            type="submit"
+                            class="delete-item-btn"
+                        >
+                            Delete
+                        </button>
+                    </form>
+                </li>
+
+            <% }); %>
+
+        <% } else { %>
+
+            <li>No tasks available</li>
+
+        <% } %>
+    </ul>
+
+    <form action="/delete" method="POST">
+        <button type="submit" class="delete-btn">
+            Delete All Tasks
+        </button>
+    </form>
+
+</div>
+
+</body>
+</html>
